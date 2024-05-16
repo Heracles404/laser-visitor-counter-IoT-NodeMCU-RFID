@@ -87,7 +87,7 @@ class MyView1:
             </style>
             <script>
                 function confirmReset() {
-                    return confirm('Are you sure you want to reset the form?');
+                    return confirm('Are you sure you want to reset?');
                 }
                 function goHome() {
                     window.location.href = 'http://localhost/laser-visitor-counter-IoT-NodeMCU-RFID/MVC/'; 
@@ -98,10 +98,10 @@ class MyView1:
             <div class="container">
                 <h1>Visitor Counter Data</h1>
                 <form action='/laser-visitor-counter-IoT-NodeMCU-RFID/MVC/controller/Controller.py' method='post'>
-                    <label for='visitor_id'>Search Visitor Number: </label>
+                    <label for='visitor_id'>Search by Visitor Number: </label>
                     <input type='text' id='visitor_id' name='visitor_id'>
                     <input type='submit' class='search' name='search' value='SEARCH'/>
-                    <input type='submit' class='reset' name='clear' value='RESET' onclick='return confirmReset()'/>
+                    <input type='submit' class='reset' name='clear' value='DELETE' onclick='return confirmReset()'/>
                     <input type='button' class='home' value='HOME' onclick='goHome()'/>
                 </form>
                 <table>
@@ -146,17 +146,18 @@ class MyView2():
                     justify-content: center;
                     align-items: center;
                     height: 100vh;
-                    background-color: #f4f4f4;
+                    background-color: #e0f7fa;
                 }
                 .container {
                     text-align: center;
-                    background-color: #fff;
+                    background-color: #ffffff;
                     padding: 20px;
                     border-radius: 10px;
                     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
                 }
                 h1 {
                     margin-bottom: 20px;
+                    color: #00796b;
                 }
                 form {
                     margin-bottom: 20px;
@@ -165,43 +166,47 @@ class MyView2():
                     width: 100%;
                     border-collapse: collapse;
                 }
-                table, th, td {
-                    border: 1px solid #000;
-                }
                 th, td {
                     padding: 10px;
+                    border: 1px solid #ddd;
                     text-align: center;
                 }
+                th {
+                    background-color: #00796b;
+                    color: white;
+                }
+                td {
+                    background-color: #e0f7fa;
+                }
                 input[type="text"] {
-                    padding: 5px;
+                    padding: 10px;
                     margin-right: 10px;
+                    border: 1px solid #ddd;
+                    border-radius: 5px;
                 }
-                input[type="submit"] {
-                    padding: 5px 10px;
+                input[type="submit"], input[type="button"] {
+                    padding: 10px 15px;
                     border: none;
                     border-radius: 5px;
-                    background-color: #007BFF;
                     color: white;
                     cursor: pointer;
                 }
-                input[type="submit"]:hover {
-                    background-color: #0056b3;
+                input[type="submit"].search {
+                    background-color: #00796b;
                 }
-                input[type="button"] {
-                    padding: 5px 10px;
-                    border: none;
-                    border-radius: 5px;
-                    background-color: #28a745;
-                    color: white;
-                    cursor: pointer;
+                input[type="submit"].reset {
+                    background-color: #00796b;
                 }
-                input[type="button"]:hover {
-                    background-color: #218838;
+                input[type="button"].home {
+                    background-color: #388e3c;
+                }
+                input[type="submit"]:hover, input[type="button"]:hover {
+                    opacity: 0.9;
                 }
             </style>
             <script>
                 function confirmReset() {
-                    return confirm('Are you sure you want to reset the form?');
+                    return confirm('Are you sure you want to reset?');
                 }
                 function goHome() {
                     window.location.href = 'http://localhost/laser-visitor-counter-IoT-NodeMCU-RFID/MVC/'; 
@@ -212,11 +217,11 @@ class MyView2():
             <div class="container">
                 <h1>Visitor Counter Data</h1>
                 <form action='/laser-visitor-counter-IoT-NodeMCU-RFID/MVC/controller/Controller.py' method='post'>
-                    <label for='visitor_id'>Search Visitor Number: </label>
+                    <label for='visitor_id'>Search by Visitor Number: </label>
                     <input type='text' id='visitor_id' name='visitor_id'>
-                    <input type='submit' name='search' value='SEARCH'/>
-                    <input type='submit' name='clear' value='RESET' onclick='return confirmReset()'/>
-                    <input type='button' value='HOME' onclick='goHome()'/>
+                    <input type='submit' class='search' name='search' value='SEARCH'/>
+                    <input type='submit' class='reset' name='clear' value='DELETE' onclick='return confirmReset()'/>
+                    <input type='button' class='home' value='HOME' onclick='goHome()'/>
                 </form>
                 <table>
                     <tr>
@@ -238,3 +243,4 @@ class MyView2():
             </div>
         </body>
         </html>""")
+

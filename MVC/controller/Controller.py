@@ -10,13 +10,9 @@ form = cgi.FieldStorage()
 # so these are data we posted from index 
 getALL = form.getvalue("ALL")
 searchVisitorID = form.getvalue("visitor_id")
-addRecordfromIndex = form.getvalue("ADD")
+searchTime = form.getvalue("time")
+searchDate = form.getvalue("date")
 clearDatabase = form.getvalue("clear")
-
-
-# so these are data we posted from HTML Design MyAddRecordBoostrap
-addRecordfromBootStrapDesign = form.getvalue("send")
-backHomefromBootStrapDesign = form.getvalue("back")
 
 postedVisitorID = form.getvalue("visitor_ID")
 postedTime = form.getvalue("time")
@@ -54,36 +50,35 @@ if str(searchVisitorID) != "None":
     view1 = MyView2(results)
     view1.viewSearched()
 
-if str(addRecordfromIndex) != "None":
-
-    # controller updates the view of addRecord
-    sys.path.append("C:/xampp/htdocs/laser-visitor-counter-IoT-NodeMCU-RFID/MVC/view")
-    from AddRecord import MyAddRecordView
-    view1 = MyAddRecordView()
-    view1.viewADDRecordDesign()
-
-if str(addRecordfromBootStrapDesign) != "None":
-
-    # controller asks model to perform add record
+elif str(searchTime) != "None":
+    # Controller asks model to search by time
     sys.path.append("C:/xampp/htdocs/laser-visitor-counter-IoT-NodeMCU-RFID/MVC/model")
-    from Queries import MyAddRecord
+    from Queries import MyQuery3
 
-    myaddrec = MyAddRecord(postedVisitorID, postedTime, postedDate)
-    result = myaddrec.addRec()
-    print(result)
+    query3 = MyQuery3(searchTime)
+    results = query3.searchByTime()
 
-    # controller updates the view back to addRecord
+    # Controller updates the view with data obtained from the model
     sys.path.append("C:/xampp/htdocs/laser-visitor-counter-IoT-NodeMCU-RFID/MVC/view")
-    from AddRecord import AddRecordView
+    from DisplayData import MyView3
 
-    view1 = AddRecordView()
-    view1.viewADDRecordDesign()
+    view2 = MyView3(results)
+    view2.viewSearched()
 
-if str(backHomefromBootStrapDesign) != "None":
+elif str(searchDate) != "None":
+    # Controller asks model to search by date
+    sys.path.append("C:/xampp/htdocs/laser-visitor-counter-IoT-NodeMCU-RFID/MVC/model")
+    from Queries import MyQuery4
 
-    # controller asks updates design back to index or main
-    redirectURL = "http://localhost/laser-visitor-counter-IoT-NodeMCU-RFID/MVC/index.html"
-    print('<script type="text/javascript">window.location ="' + redirectURL + '";</script>')
+    query4 = MyQuery4(searchDate)
+    results = query4.searchByDate()
+
+    # Controller updates the view with data obtained from the model
+    sys.path.append("C:/xampp/htdocs/laser-visitor-counter-IoT-NodeMCU-RFID/MVC/view")
+    from DisplayData import MyView4
+
+    view3 = MyView4(results)
+    view3.viewSearched()
 
 if str(clearDatabase) != "None":
 

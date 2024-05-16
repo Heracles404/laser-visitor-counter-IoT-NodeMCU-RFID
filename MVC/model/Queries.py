@@ -28,24 +28,6 @@ class MyQuery2():
         mycursor.execute("SELECT * FROM counter WHERE visitor_ID = %s", (self.visitor_id,))
         myresult = mycursor.fetchall()
         return myresult
-
-# this is the class to add a record as performed by MyAddRecordBootstrap                
-class MyAddRecord():  
-    def __init__(self, visitor_id, time, date):    
-        self.visitor_id = visitor_id  
-        self.time = time
-        self.date = date   
-
-    def addRec(self): 
-        conn = Connection("localhost", "root", "", "visitor")
-        mydb = conn.connect()
-        mycursor = mydb.cursor()
-        sql = "INSERT INTO counter (visitor_ID, time, date) VALUES (%s, %s, %s)"
-        values = (self.visitor_id, self.time, self.date)
-        mycursor.execute(sql, values)
-        mydb.commit()
-        result = mycursor.rowcount, "Record Added!"  
-        return result
     
 class MyClearDatabase():
     def clearAll(self):
