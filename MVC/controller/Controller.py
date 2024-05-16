@@ -11,6 +11,8 @@ form = cgi.FieldStorage()
 getALL = form.getvalue("ALL")
 searchVisitorID = form.getvalue("visitor_id")
 addRecordfromIndex = form.getvalue("ADD")
+clearDatabase = form.getvalue("clear")
+
 
 # so these are data we posted from HTML Design MyAddRecordBoostrap
 addRecordfromBootStrapDesign = form.getvalue("send")
@@ -82,3 +84,27 @@ if str(backHomefromBootStrapDesign) != "None":
     # controller asks updates design back to index or main
     redirectURL = "http://localhost/laser-visitor-counter-IoT-NodeMCU-RFID/MVC/index.html"
     print('<script type="text/javascript">window.location ="' + redirectURL + '";</script>')
+
+if str(clearDatabase) != "None":
+
+    # controller asks model to clear the database
+    sys.path.append("C:/xampp/htdocs/laser-visitor-counter-IoT-NodeMCU-RFID/MVC/model")
+    from Queries import MyClearDatabase
+
+    clear_db = MyClearDatabase()
+    result = clear_db.clearAll()
+    print(result)
+
+    # controller updates the view back to show all records
+    sys.path.append("C:/xampp/htdocs/laser-visitor-counter-IoT-NodeMCU-RFID/MVC/model")
+    from Queries import MyQuery1
+
+    query1 = MyQuery1()
+    results = query1.showAll()
+
+    # controller updates the view of data obtained from the model
+    sys.path.append("C:/xampp/htdocs/laser-visitor-counter-IoT-NodeMCU-RFID/MVC/view")
+    from DisplayData import MyView1
+
+    view1 = MyView1(results)
+    view1.viewAll()

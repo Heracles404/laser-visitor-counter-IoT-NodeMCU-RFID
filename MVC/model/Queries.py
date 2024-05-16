@@ -46,3 +46,15 @@ class MyAddRecord():
         mydb.commit()
         result = mycursor.rowcount, "Record Added!"  
         return result
+    
+class MyClearDatabase():
+    def clearAll(self):
+        conn = Connection("localhost", "root", "", "visitor")
+        mydb = conn.connect()
+        mycursor = mydb.cursor()
+        sql = "TRUNCATE TABLE counter"
+        mycursor.execute(sql)
+        mydb.commit()
+
+        #result = mycursor.rowcount, "All Records Deleted!"
+        #return result

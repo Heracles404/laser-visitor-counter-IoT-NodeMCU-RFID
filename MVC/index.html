@@ -1,20 +1,62 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visitor Counter System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            margin-bottom: 10px;
+        }
+        h3 {
+            margin: 10px 0;
+        }
+        p {
+            margin: 20px 0;
+        }
+        input[type="submit"] {
+            margin: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
-<center>
-<form action ="controller/Controller.py" method ="post">
-<h1>Visitor Counter System</h1>
-<h3>Made by: <br>Nazareno, Escote, Mendoza, Jimenez, Madrid</br> </h3>
-
-<p> To develop a visitor counter system using a laser sensor with Arduino, capable of accurately detecting and counting visitors entering a room. <br>This system will be integrated with CGI (Common Gateway Interface) and follow the MVC (Model-View-Controller) architectural pattern. <br>
-
-</p>
-<input type ="submit" name =" " value = "Open Counter"/>
-<input type ="submit" name =" " value = "Close Counter"/>
-<input type ="submit" name ="ALL" value = "View Visitor Data"/>
-
-<!-- <input type ="submit" name ="ADD" value = "ADD_RECORD"/> -->
-</form>
-</center>
-
+<body>
+    <div class="container">
+        <form action="controller/Controller.py" method="post">
+            <h1>Visitor Counter System</h1>
+            <h3>Made by: <br>Nazareno, Escote, Mendoza, Jimenez, Madrid</h3>
+            <p>The objective of our group is to develop a visitor counter system using a laser sensor with Arduino, capable of accurately detecting and counting visitors entering a room. This system will be integrated with CGI (Common Gateway Interface) and follow the MVC (Model-View-Controller) architectural pattern.</p>
+            <p>Allows us to manually control the behavior of the counter.</p>
+            <input type="submit" name="counter" value="ON Counter"/>
+            <input type="submit" name="counter" value="OFF Counter"/>
+            <p>Display all the Visitor Information.</p>
+            <input type="submit" name="ALL" value="View Visitor Data"/>
+        </form>
+    </div>
+</body>
 </html>
