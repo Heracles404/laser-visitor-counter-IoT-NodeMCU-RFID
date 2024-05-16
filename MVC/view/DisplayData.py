@@ -68,7 +68,26 @@ class MyView1():
                 input[type="submit"]:hover {
                     background-color: #0056b3;
                 }
+                input[type="button"] {
+                    padding: 5px 10px;
+                    border: none;
+                    border-radius: 5px;
+                    background-color: #28a745;
+                    color: white;
+                    cursor: pointer;
+                }
+                input[type="button"]:hover {
+                    background-color: #218838;
+                }
             </style>
+            <script>
+                function confirmReset() {
+                    return confirm('Are you sure you want to reset the form?');
+                }
+                function goHome() {
+                    window.location.href = 'http://localhost/laser-visitor-counter-IoT-NodeMCU-RFID/MVC/'; 
+                }
+            </script>
         </head>
         <body>
             <div class="container">
@@ -77,7 +96,8 @@ class MyView1():
                     <label for='visitor_id'>Search Visitor Number: </label>
                     <input type='text' id='visitor_id' name='visitor_id'>
                     <input type='submit' name='search' value='SEARCH'/>
-                    <input type='submit' name='clear' value='RESET'/>
+                    <input type='submit' name='clear' value='RESET' onclick='return confirmReset()'/>
+                    <input type='button' value='HOME' onclick='goHome()'/>
                 </form>
                 <table>
                     <tr>
@@ -162,7 +182,26 @@ class MyView2():
                 input[type="submit"]:hover {
                     background-color: #0056b3;
                 }
+                input[type="button"] {
+                    padding: 5px 10px;
+                    border: none;
+                    border-radius: 5px;
+                    background-color: #28a745;
+                    color: white;
+                    cursor: pointer;
+                }
+                input[type="button"]:hover {
+                    background-color: #218838;
+                }
             </style>
+            <script>
+                function confirmReset() {
+                    return confirm('Are you sure you want to reset the form?');
+                }
+                function goHome() {
+                    window.location.href = 'http://localhost/laser-visitor-counter-IoT-NodeMCU-RFID/MVC/'; 
+                }
+            </script>
         </head>
         <body>
             <div class="container">
@@ -171,7 +210,8 @@ class MyView2():
                     <label for='visitor_id'>Search Visitor Number: </label>
                     <input type='text' id='visitor_id' name='visitor_id'>
                     <input type='submit' name='search' value='SEARCH'/>
-                    <input type='submit' name='clear' value='RESET'/>
+                    <input type='submit' name='clear' value='RESET' onclick='return confirmReset()'/>
+                    <input type='button' value='HOME' onclick='goHome()'/>
                 </form>
                 <table>
                     <tr>
