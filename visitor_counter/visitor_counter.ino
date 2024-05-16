@@ -34,6 +34,10 @@ void setup() {
 void loop() {
     visitorDetected = digitalRead(sensorPin);
 
+    // Insert here
+    // get value from state table
+    // while state value fetch is zero, get value from state table
+
     if (visitorDetected == HIGH) {
       visitor++;
       Serial.print("Visitor #: ");
