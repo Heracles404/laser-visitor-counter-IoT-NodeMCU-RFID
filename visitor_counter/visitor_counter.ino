@@ -5,16 +5,20 @@ int visitorDetected;
 
 #include <ArduinoJson.h>
 
-// Internet Components
+// Hosting and WiFi Components
 #include <ESP8266WiFi.h>
+#include <ESP8266WebServer.h>
 #include <ESP8266HTTPClient.h>
+
+ESP8266WebServer server(80);
 
 const char* ssid = "IoT";
 const char* password = "AccessPoint.2024";
 const char* host = "192.168.248.196";
 
-const char* server_fetch = "http://192.168.248.196/laser-visitor-counter-IoT-NodeMCU-RFID/count_visitor.php";
-// const char* server_newvisitor = "http://192.168.248.196/laser-visitor-counter-IoT-NodeMCU-RFID/new_visitor.php?vID=" + visitor;
+String server_fetch = "http://192.168.248.196/laser-visitor-counter-IoT-NodeMCU-RFID/count_visitor.php";
+String server_newvisitor = "http://192.168.248.196/laser-visitor-counter-IoT-NodeMCU-RFID/new_visitor.php?vID=" + String(visitor);
+//ESP8266WebServer server(80);
 
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
@@ -61,13 +65,12 @@ void newVisit(){
   if (WiFi.status() == WL_CONNECTED) {
     HTTPClient http;
     WiFiClient wifi;
-    String url = "http://192.168.248.196/laser-visitor-counter-IoT-NodeMCU-RFID/new_visitor.php?vID=" + String(visitor);
-    http.begin(wifi, url); 
+    http.begin(wifi, server_newvisitor); 
     http.addHeader("Content-Type", "text/plain");
     int httpCode = http.GET();
     if (httpCode > 0) {
       String response = http.getString();
-      Serial.println(response);
+      //Serial.println(response);
     } else {
       Serial.println("HTTP Error: " + http.errorToString(httpCode));
     }
