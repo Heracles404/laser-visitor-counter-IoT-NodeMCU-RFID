@@ -49,13 +49,6 @@ if str(searchVisitorID) != "None":
     view1 = MyView2(results)
     view1.viewSearched()
 
-    # Controller updates the view with data obtained from the model
-    sys.path.append("C:/xampp/htdocs/laser-visitor-counter-IoT-NodeMCU-RFID/MVC/view")
-    from DisplayData import MyView4
-
-    view3 = MyView4(results)
-    view3.viewSearched()
-
 elif str(clearSearch) != "None":  
     # controller asks model to show all records
     sys.path.append("C:/xampp/htdocs/laser-visitor-counter-IoT-NodeMCU-RFID/MVC/model")
