@@ -41,7 +41,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $visitor_data["date"] = $row["date"];
         $visitor_data["time"] = $row["time"];
     } else {
-        echo "0 results";
+        $visitor_data["visitor_id"] = "0";
+        $visitor_data["date"] = "";
+        $visitor_data["time"] = "";
     }
 
     // Return data in JSON format
