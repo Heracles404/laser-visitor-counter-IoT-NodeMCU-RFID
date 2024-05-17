@@ -1,11 +1,3 @@
-#!C:\Users\rjesc\AppData\Local\Programs\Python\Python312\python.exe
-
-import mysql.connector
-import sys
-sys.path.append("C:/xampp/htdocs/laser-visitor-counter-IoT-NodeMCU-RFID/MVC/model")
-
-from Queries import *
-
 class MyView1: 
     def __init__(self, results):    
         self.results = results 
@@ -76,10 +68,13 @@ class MyView1:
                     background-color: #00796b;
                 }
                 input[type="submit"].reset {
-                    background-color: #00796b;
+                    background-color: #f44336;
                 }
                 input[type="button"].home {
                     background-color: #388e3c;
+                }
+                input[type="submit"].clear {
+                    background-color: #00796b;
                 }
                 input[type="submit"]:hover, input[type="button"]:hover {
                     opacity: 0.9;
@@ -101,6 +96,7 @@ class MyView1:
                     <label for='visitor_id'>Search by Visitor Number: </label>
                     <input type='text' id='visitor_id' name='visitor_id'>
                     <input type='submit' class='search' name='search' value='SEARCH'/>
+                    <input type='submit' class='clear' name='clear_search' value='CLEAR'/>
                     <input type='submit' class='reset' name='clear' value='DELETE' onclick='return confirmReset()'/>
                     <input type='button' class='home' value='HOME' onclick='goHome()'/>
                 </form>
@@ -125,7 +121,7 @@ class MyView1:
         </body>
         </html>""")
 
-class MyView2(): 
+class MyView2: 
     def __init__(self, results):    
         self.results = results 
     
@@ -195,10 +191,13 @@ class MyView2():
                     background-color: #00796b;
                 }
                 input[type="submit"].reset {
-                    background-color: #00796b;
+                    background-color: #f44336;
                 }
                 input[type="button"].home {
                     background-color: #388e3c;
+                }
+                input[type="submit"].clear {
+                    background-color: #00796b;
                 }
                 input[type="submit"]:hover, input[type="button"]:hover {
                     opacity: 0.9;
@@ -220,6 +219,7 @@ class MyView2():
                     <label for='visitor_id'>Search by Visitor Number: </label>
                     <input type='text' id='visitor_id' name='visitor_id'>
                     <input type='submit' class='search' name='search' value='SEARCH'/>
+                    <input type='submit' class='clear' name='clear_search' value='CLEAR'/>
                     <input type='submit' class='reset' name='clear' value='DELETE' onclick='return confirmReset()'/>
                     <input type='button' class='home' value='HOME' onclick='goHome()'/>
                 </form>
@@ -243,4 +243,3 @@ class MyView2():
             </div>
         </body>
         </html>""")
-

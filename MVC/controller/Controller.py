@@ -13,6 +13,7 @@ searchVisitorID = form.getvalue("visitor_id")
 searchTime = form.getvalue("time")
 searchDate = form.getvalue("date")
 clearDatabase = form.getvalue("clear")
+clearSearch = form.getvalue("clear_search")
 
 postedVisitorID = form.getvalue("visitor_ID")
 postedTime = form.getvalue("time")
@@ -80,6 +81,21 @@ elif str(searchDate) != "None":
     view3 = MyView4(results)
     view3.viewSearched()
 
+elif str(clearSearch) != "None":  # Added this block
+    # controller asks model to show all records
+    sys.path.append("C:/xampp/htdocs/laser-visitor-counter-IoT-NodeMCU-RFID/MVC/model")
+    from Queries import MyQuery1
+
+    query1 = MyQuery1()
+    results = query1.showAll()
+
+    # controller updates the view of data obtained from the model
+    sys.path.append("C:/xampp/htdocs/laser-visitor-counter-IoT-NodeMCU-RFID/MVC/view")
+    from DisplayData import MyView1
+
+    view1 = MyView1(results)
+    view1.viewAll()
+
 if str(clearDatabase) != "None":
 
     # controller asks model to clear the database
@@ -103,3 +119,5 @@ if str(clearDatabase) != "None":
 
     view1 = MyView1(results)
     view1.viewAll()
+
+    
