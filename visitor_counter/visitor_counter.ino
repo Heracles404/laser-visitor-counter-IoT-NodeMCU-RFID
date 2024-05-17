@@ -1,4 +1,5 @@
 #define sensorPin D2
+int swtch;
 String lastVisitorID = "";
 int visitor;
 int visitorDetected;
@@ -42,13 +43,22 @@ void setup() {
 }
 
 void loop() {
+  // check switch
+  if (Serial.available() > 0){
+    swtch = Serial.read();
+    if (swtch != '\n' && swtch != '\r') { 
+      Serial.println(swtch);
+      if (swtch == 70){
+        while(swtch!=78){
+          swtch = Serial.read();
+          yield();
+        }
+      }
+    }
+  }
+
   visitorDetected = digitalRead(sensorPin);
 
-    // Insert here
-    // get value from state table
-    // while state value fetch is zero, get value from state table
-    
-    
   if (visitorDetected == HIGH) {
     visitor++;
     newVisit();
@@ -122,6 +132,7 @@ void initCount(){
 
   return;
 }
+
 
 void visualFeedback(){
   Serial.print("Visitor #: ");
