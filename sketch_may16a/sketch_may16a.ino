@@ -3,13 +3,13 @@
 #include <ArduinoJson.h>
 
 // WiFi credentials
-const char* ssid = "uan";
-const char* password = "123456789";
+const char* ssid = "IoT";
+const char* password = "AccessPoint.2024";
 
 // Server address
-const char* serverName = "http://192.168.111.226/get_visitor_ids.php"; // Change this to your actual server address
+const char* serverName = "http://192.168.68.100/laser-visitor-counter-IoT-NodeMCU-RFID/count_visitor.php"; // Change this to your actual server address
 
-String lastVisitorID = "";
+int lastVisitorID = -1; // Initialize to -1 to indicate no previous ID
 
 void setup() {
   Serial.begin(115200);
@@ -43,14 +43,14 @@ void fetchLatestVisitorID() {
       // Parse JSON payload
       DynamicJsonDocument doc(1024);
       deserializeJson(doc, payload);
-      String newVisitorID = doc["visitor_id"].as<String>();
+      int newVisitorID = doc["visitor_id"].as<int>();
 
       // Check if the new visitor ID is different from the last displayed ID
-      if (newVisitorID != lastVisitorID && !newVisitorID.isEmpty()) {
-        Serial.println("New Visitor ID: " + newVisitorID);
+      if (newVisitorID != lastVisitorID && newVisitorID != 0) {
+        Serial.println("New Visitor ID: " + String(newVisitorID));
         lastVisitorID = newVisitorID; // Update the last displayed ID
-      } else if (!lastVisitorID.isEmpty()) {
-        Serial.println("Last Visitor ID: " + lastVisitorID);
+      } else if (lastVisitorID != -1) {
+        Serial.println("Last Visitor ID: " + String(lastVisitorID));
       }
     } else {
       Serial.println("Error on HTTP request");
@@ -64,5 +64,5 @@ void fetchLatestVisitorID() {
 
 void loop() {
   fetchLatestVisitorID(); // Fetch and display the latest visitor ID
-  delay(2000); // Check for new data every 5 seconds
+  delay(2000); // Check for new data every 2 seconds
 }
