@@ -1,3 +1,11 @@
+#!C:\Users\rjesc\AppData\Local\Programs\Python\Python312\python.exe
+
+import mysql.connector
+import sys
+sys.path.append("C:/xampp/htdocs/laser-visitor-counter-IoT-NodeMCU-RFID/MVC/model")
+
+from Queries import *
+
 class MyView1: 
     def __init__(self, results):    
         self.results = results 
@@ -98,7 +106,6 @@ class MyView1:
                     <input type='submit' class='search' name='search' value='SEARCH'/>
                     <input type='submit' class='clear' name='clear_search' value='CLEAR'/>
                     <input type='submit' class='reset' name='clear' value='DELETE' onclick='return confirmReset()'/>
-                    <input type='button' class='home' value='HOME' onclick='goHome()'/>
                 </form>
                 <table>
                     <tr>
@@ -117,7 +124,10 @@ class MyView1:
         
         print("""
                 </table>
+            <br></br>
+            <input type='button' class='home' value='HOME' onclick='goHome()'/>      
             </div>
+        
         </body>
         </html>""")
 
@@ -221,7 +231,6 @@ class MyView2:
                     <input type='submit' class='search' name='search' value='SEARCH'/>
                     <input type='submit' class='clear' name='clear_search' value='CLEAR'/>
                     <input type='submit' class='reset' name='clear' value='DELETE' onclick='return confirmReset()'/>
-                    <input type='button' class='home' value='HOME' onclick='goHome()'/>
                 </form>
                 <table>
                     <tr>
@@ -240,6 +249,8 @@ class MyView2:
         
         print("""
                 </table>
-            </div>
+            <br></br>
+            <input type='button' class='home' value='HOME' onclick='goHome()'/>
+            </div>       
         </body>
         </html>""")
