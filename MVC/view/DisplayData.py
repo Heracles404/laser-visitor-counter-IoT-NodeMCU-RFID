@@ -68,7 +68,7 @@ class MyView1:
                     background-color: #00796b;
                 }
                 input[type="submit"].reset {
-                    background-color: #f44336;
+                    background-color: #648c11    ;
                 }
                 input[type="button"].home {
                     background-color: #388e3c;
@@ -191,7 +191,7 @@ class MyView2:
                     background-color: #00796b;
                 }
                 input[type="submit"].reset {
-                    background-color: #f44336;
+                    background-color: #648c11    ;
                 }
                 input[type="button"].home {
                     background-color: #388e3c;

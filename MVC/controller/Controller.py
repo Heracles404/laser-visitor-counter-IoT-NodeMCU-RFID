@@ -10,8 +10,6 @@ form = cgi.FieldStorage()
 # so these are data we posted from index 
 getALL = form.getvalue("ALL")
 searchVisitorID = form.getvalue("visitor_id")
-searchTime = form.getvalue("time")
-searchDate = form.getvalue("date")
 clearDatabase = form.getvalue("clear")
 clearSearch = form.getvalue("clear_search")
 
@@ -51,29 +49,6 @@ if str(searchVisitorID) != "None":
     view1 = MyView2(results)
     view1.viewSearched()
 
-elif str(searchTime) != "None":
-    # Controller asks model to search by time
-    sys.path.append("C:/xampp/htdocs/laser-visitor-counter-IoT-NodeMCU-RFID/MVC/model")
-    from Queries import MyQuery3
-
-    query3 = MyQuery3(searchTime)
-    results = query3.searchByTime()
-
-    # Controller updates the view with data obtained from the model
-    sys.path.append("C:/xampp/htdocs/laser-visitor-counter-IoT-NodeMCU-RFID/MVC/view")
-    from DisplayData import MyView3
-
-    view2 = MyView3(results)
-    view2.viewSearched()
-
-elif str(searchDate) != "None":
-    # Controller asks model to search by date
-    sys.path.append("C:/xampp/htdocs/laser-visitor-counter-IoT-NodeMCU-RFID/MVC/model")
-    from Queries import MyQuery4
-
-    query4 = MyQuery4(searchDate)
-    results = query4.searchByDate()
-
     # Controller updates the view with data obtained from the model
     sys.path.append("C:/xampp/htdocs/laser-visitor-counter-IoT-NodeMCU-RFID/MVC/view")
     from DisplayData import MyView4
@@ -81,7 +56,7 @@ elif str(searchDate) != "None":
     view3 = MyView4(results)
     view3.viewSearched()
 
-elif str(clearSearch) != "None":  # Added this block
+elif str(clearSearch) != "None":  
     # controller asks model to show all records
     sys.path.append("C:/xampp/htdocs/laser-visitor-counter-IoT-NodeMCU-RFID/MVC/model")
     from Queries import MyQuery1
