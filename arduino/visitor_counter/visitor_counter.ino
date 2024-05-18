@@ -5,20 +5,13 @@ int visitorDetected;
 
 #include <ArduinoJson.h>
 
-// Hosting and WiFi Components
+// Internet Components
 #include <ESP8266WiFi.h>
-#include <ESP8266WebServer.h>
 #include <ESP8266HTTPClient.h>
-
-ESP8266WebServer server(80);
 
 const char* ssid = "IoT";
 const char* password = "AccessPoint.2024";
-const char* host = "192.168.248.196";
-
-String server_fetch = "http://192.168.248.196/laser-visitor-counter-IoT-NodeMCU-RFID/count_visitor.php";
-String server_newvisitor = "http://192.168.248.196/laser-visitor-counter-IoT-NodeMCU-RFID/new_visitor.php?vID=" + String(visitor);
-//ESP8266WebServer server(80);
+const char* host = "http://192.168.248.196";
 
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
@@ -26,29 +19,22 @@ String server_newvisitor = "http://192.168.248.196/laser-visitor-counter-IoT-Nod
 // Set the LCD address to 0x27 for a 16 chars and 2 line display
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 
-
 void setup() {
   Serial.begin(9600);
 
   wifiConfig();   // WiFi Configuration / SetUp
   initCount();    // Fetch latest visitor count from DB
-
-  pinMode(sensorPin, INPUT);
+  
 
   lcd.init();
   lcd.backlight();
   visualFeedback();
-
+  pinMode(sensorPin, INPUT);
 }
 
 void loop() {
   visitorDetected = digitalRead(sensorPin);
 
-    // Insert here
-    // get value from state table
-    // while state value fetch is zero, get value from state table
-    
-    
   if (visitorDetected == HIGH) {
     visitor++;
     newVisit();
@@ -65,7 +51,8 @@ void newVisit(){
   if (WiFi.status() == WL_CONNECTED) {
     HTTPClient http;
     WiFiClient wifi;
-    http.begin(wifi, server_newvisitor); 
+    String server_newVisit = String(host) + "/laser-visitor-counter-IoT-NodeMCU-RFID/queries/new_visitor.php?vID=" + String(visitor);
+    http.begin(wifi, server_newVisit); 
     http.addHeader("Content-Type", "text/plain");
     int httpCode = http.GET();
     if (httpCode > 0) {
@@ -78,8 +65,9 @@ void newVisit(){
   } else {
     Serial.println("Error in WiFi connection");
   }
-}
 
+  return;
+}
 
 void wifiConfig(){
   Serial.println();
@@ -103,6 +91,7 @@ void initCount(){
   if (WiFi.status() == WL_CONNECTED) {
     HTTPClient http;
     WiFiClient wifi;
+    const char* server_fetch = String(host) + "/laser-visitor-counter-IoT-NodeMCU-RFID/queries/count_visitor.php";
     http.begin(wifi, server_fetch); 
     int httpCode = http.GET();
     if (httpCode > 0) {

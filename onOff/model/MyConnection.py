@@ -1,10 +1,12 @@
-#!C:\Users\rjesc\AppData\Local\Programs\Python\Python312\python.exe
+#!C:\Python\python.exe
+
+
 
 import mysql.connector
 
-class Connection():   
+class MyConnection():   
        
-        def __init__(self, host, user, pwd,dbase):    
+        def __init__(self, host, user, pwd, dbase):    
                 self.host = host
                 self.user = user
                 self.pwd = pwd
