@@ -1,6 +1,5 @@
 #define sensorPin D2
 String lastVisitorID = "";
-int swtch;
 int visitor;
 int visitorDetected;
 
@@ -12,9 +11,7 @@ int visitorDetected;
 
 const char* ssid = "IoT";
 const char* password = "AccessPoint.2024";
-const char* host = "192.168.248.196";
-
-const char* server_fetch = "http://192.168.248.196/laser-visitor-counter-IoT-NodeMCU-RFID/count_visitor.php";
+const char* host = "http://192.168.248.196";
 
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
@@ -54,7 +51,7 @@ void newVisit(){
   if (WiFi.status() == WL_CONNECTED) {
     HTTPClient http;
     WiFiClient wifi;
-    String server_newVisit = "http://192.168.248.196/laser-visitor-counter-IoT-NodeMCU-RFID/new_visitor.php?vID=" + String(visitor);
+    String server_newVisit = String(host) + "/laser-visitor-counter-IoT-NodeMCU-RFID/queries/new_visitor.php?vID=" + String(visitor);
     http.begin(wifi, server_newVisit); 
     http.addHeader("Content-Type", "text/plain");
     int httpCode = http.GET();
@@ -94,6 +91,7 @@ void initCount(){
   if (WiFi.status() == WL_CONNECTED) {
     HTTPClient http;
     WiFiClient wifi;
+    const char* server_fetch = String(host) + "/laser-visitor-counter-IoT-NodeMCU-RFID/queries/count_visitor.php";
     http.begin(wifi, server_fetch); 
     int httpCode = http.GET();
     if (httpCode > 0) {
