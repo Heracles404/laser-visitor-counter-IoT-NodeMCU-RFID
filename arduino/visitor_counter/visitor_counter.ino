@@ -36,20 +36,6 @@ void setup() {
 }
 
 void loop() {
-  // check switch
-  if (Serial.available() > 0){
-    swtch = Serial.read();
-    if (swtch != '\n' && swtch != '\r') { 
-      Serial.println(swtch);
-      if (swtch == 'F'){
-        while(swtch != 'N'){
-          swtch = Serial.read();
-          yield();
-        }
-      }
-    }
-  }
-
   visitorDetected = digitalRead(sensorPin);
 
   if (visitorDetected == HIGH) {

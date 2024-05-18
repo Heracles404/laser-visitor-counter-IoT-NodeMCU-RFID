@@ -1,19 +1,31 @@
 #!C:\Python\python.exe
 
-print("Content-Type: text/html")
-print()
 import serial
 import cgi
+import sys
+import time
 
+print("Content-Type: text/plain\n")
+
+ser = serial.Serial('COM5', 9600)
+time.sleep(2)  # Wait for the connection to initialize
+
+# Get data from the form
 form = cgi.FieldStorage()
-action = form.getvalue("action")
+action = form.getvalue('action')
 
-ser = serial.Serial('COM12', 9600)
+# Send the appropriate command to the Arduino
+if action == 'on':
+    ser.write(b'N')
+    status = "Pin 2 turned ON"
+elif action == 'off':
+    ser.write(b'F')
+    status = "Pin 2 turned OFF"
+else:
+    status = "Unknown action"
 
-if action == "ON":
-    state = b'N'
-elif action == "OFF":
-    state = b'F'
+# Close the serial connection
+ser.close()
 
-ser.write(state)
-    
+# Send a response back to the web browser
+print(status)
