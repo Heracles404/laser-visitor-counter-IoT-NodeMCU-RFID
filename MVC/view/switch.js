@@ -1,6 +1,6 @@
 function controlArduino(action) {
             var xhr = new XMLHttpRequest();
-            xhr.open("POST", "onOff/controller/MyController.py", true);
+            xhr.open("POST", "MVC/controller/switch.py", true);
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhr.onreadystatechange = function() {
                 if (xhr.readyState == 4 && xhr.status == 200) {
