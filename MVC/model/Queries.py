@@ -1,9 +1,8 @@
-#!C:\Users\rjesc\AppData\Local\Programs\Python\Python312\python.exe
-
+#!C:\Users\Jiro\AppData\Local\Programs\Python\Python312\python.exe
 import mysql.connector
 
 import sys
-sys.path.append("C:/xampp/htdocs/laser-visitor-counter-IoT-NodeMCU-RFID/MVC/model")
+sys.path.append("D:/xampp/htdocs/laser-visitor-counter-IoT-NodeMCU-RFID/MVC/model")
 from Connection import Connection
 
 # this is the class to get ALL records
