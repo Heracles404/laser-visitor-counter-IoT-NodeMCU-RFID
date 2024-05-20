@@ -1,4 +1,4 @@
-#!C:\Users\Jiro\AppData\Local\Programs\Python\Python312\python.exe
+#!C:\Python\python.exe
 import mysql.connector
 
 import sys
