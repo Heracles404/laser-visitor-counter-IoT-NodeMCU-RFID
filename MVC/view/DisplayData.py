@@ -227,7 +227,7 @@ class MyView2:
         <body>
             <div class="container">
                 <h1>Visitor Counter Data</h1>
-                <form action='/laser-visitor-counter-IoT-NodeMCU-RFID/controller/Controller.py' method='post'>
+                <form action='/laser-visitor-counter-IoT-NodeMCU-RFID/MVC/controller/Controller.py' method='post'>
                     <label for='visitor_id'>Search by Visitor Number: </label>
                     <input type='text' id='visitor_id' name='visitor_id'>
                     <label for='date'>Search by Date: </label>
