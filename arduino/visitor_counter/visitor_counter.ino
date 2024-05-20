@@ -25,7 +25,6 @@ void setup() {
   wifiConfig();   // WiFi Configuration / SetUp
   initCount();    // Fetch latest visitor count from DB
   
-
   lcd.init();
   lcd.backlight();
   visualFeedback();
