@@ -11,7 +11,7 @@ int visitorDetected;
 
 const char* ssid = "IoT";
 const char* password = "AccessPoint.2024";
-const char* host = "http://192.168.248.196";
+const char* host = "http://192.168.68.100";
 
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
@@ -91,7 +91,7 @@ void initCount(){
   if (WiFi.status() == WL_CONNECTED) {
     HTTPClient http;
     WiFiClient wifi;
-    const char* server_fetch = String(host) + "/laser-visitor-counter-IoT-NodeMCU-RFID/queries/count_visitor.php";
+    String server_fetch = String(host) + "/laser-visitor-counter-IoT-NodeMCU-RFID/queries/count_visitor.php";
     http.begin(wifi, server_fetch); 
     int httpCode = http.GET();
     if (httpCode > 0) {
