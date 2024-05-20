@@ -7,6 +7,11 @@
 <body>
     <button id="onButton" type="button" onclick="controlArduino('on')">Turn On</button>
     <button id="offButton" type="button" onclick="controlArduino('off')" disabled>Turn Off</button>
-	<button id="#" type="button" onclick="#" >Records</button>
+    <form action="MVC/controller/Controller.py" method="post">
+        <div class="button-group">
+            <h4>Visitor Information</h4>
+            <input type="submit" name="ALL" value="View Record">
+        </div>
+    </form>
 </body>
 </html>
