@@ -1,52 +1,65 @@
+#include <Arduino_FreeRTOS.h>
+#include <ESP8266WiFi.h>
+#include <ESP8266HTTPClient.h>
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+#include <FreeRTOS.h>
+#include <task.h>
+
 #define sensorPin D2
 String lastVisitorID = "";
 int visitor;
 int visitorDetected;
 
-#include <ArduinoJson.h>
-
-// Internet Components
-#include <ESP8266WiFi.h>
-#include <ESP8266HTTPClient.h>
-
 const char* ssid = "IoT";
 const char* password = "AccessPoint.2024";
-const char* host = "http://192.168.68.100";
+const char* host = "http://192.168.248.196";
 
-#include <Wire.h>
-#include <LiquidCrystal_I2C.h>
-
-// Set the LCD address to 0x27 for a 16 chars and 2 line display
 LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+void taskSensor(void *pvParameters) {
+  for (;;) {
+    visitorDetected = digitalRead(sensorPin);
+    if (visitorDetected == HIGH) {
+      visitor++;
+      newVisit();
+      vTaskDelay(200 / portTICK_PERIOD_MS);
+    }
+  }
+}
+
+void taskVisualFeedback(void *pvParameters) {
+  for (;;) {
+    Serial.print("Visitor #: ");
+    Serial.println(visitor);
+
+    lcd.clear();
+    lcd.setCursor(0, 0); 
+    lcd.print("Visitor #: ");
+    lcd.setCursor(11, 0); 
+    lcd.print(visitor);
+
+    vTaskDelay(200 / portTICK_PERIOD_MS);
+  }
+}
 
 void setup() {
   Serial.begin(9600);
+  wifiConfig();
+  initCount();
 
-  wifiConfig();   // WiFi Configuration / SetUp
-  initCount();    // Fetch latest visitor count from DB
-  
   lcd.init();
   lcd.backlight();
-  visualFeedback();
-  pinMode(sensorPin, INPUT);
+
+  xTaskCreate(taskSensor, "Sensor", 1000, NULL, 1, NULL);
+  xTaskCreate(taskVisualFeedback, "VisualFeedback", 1000, NULL, 1, NULL);
 }
 
 void loop() {
-  visitorDetected = digitalRead(sensorPin);
-
-  if (visitorDetected == HIGH) {
-    visitor++;
-    newVisit();
-    visualFeedback();
-    while(visitorDetected == HIGH){
-      visitorDetected = digitalRead(sensorPin);
-    }
-  }
-  
-  delay(200);
+  // Not used in FreeRTOS
 }
 
-void newVisit(){
+void newVisit() {
   if (WiFi.status() == WL_CONNECTED) {
     HTTPClient http;
     WiFiClient wifi;
@@ -56,7 +69,6 @@ void newVisit(){
     int httpCode = http.GET();
     if (httpCode > 0) {
       String response = http.getString();
-      //Serial.println(response);
     } else {
       Serial.println("HTTP Error: " + http.errorToString(httpCode));
     }
@@ -64,16 +76,14 @@ void newVisit(){
   } else {
     Serial.println("Error in WiFi connection");
   }
-
-  return;
 }
 
-void wifiConfig(){
+void wifiConfig() {
   Serial.println();
   Serial.print("Connecting to ");
   Serial.println(ssid);
 
-  WiFi.begin(ssid, password);  // Start the Wi-Fi connection
+  WiFi.begin(ssid, password);
 
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
@@ -86,7 +96,7 @@ void wifiConfig(){
   Serial.println(WiFi.localIP());  
 }
 
-void initCount(){
+void initCount() {
   if (WiFi.status() == WL_CONNECTED) {
     HTTPClient http;
     WiFiClient wifi;
@@ -95,11 +105,10 @@ void initCount(){
     int httpCode = http.GET();
     if (httpCode > 0) {
       String response = http.getString();
-      // Parse the JSON response
       DynamicJsonDocument doc(1024);
       deserializeJson(doc, response);
       const char* visitor_id = doc["visitor_id"];
-      visitor = atoi(visitor_id); // Convert visitor_id to integer
+      visitor = atoi(visitor_id);
     } else {
       Serial.println("HTTP Error: " + http.errorToString(httpCode));
     }
@@ -107,17 +116,4 @@ void initCount(){
   } else {
     Serial.println("Error in WiFi connection");
   }
-
-  return;
-}
-
-void visualFeedback(){
-  Serial.print("Visitor #: ");
-  Serial.println(visitor);
-
-  lcd.clear();
-  lcd.setCursor(0, 0); 
-  lcd.print("Visitor #: ");
-  lcd.setCursor(11, 0); 
-  lcd.print(visitor); 
 }
