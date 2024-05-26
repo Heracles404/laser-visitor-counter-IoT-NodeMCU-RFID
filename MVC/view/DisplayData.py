@@ -1,4 +1,4 @@
-#!C:\Python\python.exe
+#!C:\Users\rjesc\AppData\Local\Programs\Python\Python312\python.exe
 
 import mysql.connector
 import sys
@@ -102,9 +102,7 @@ class MyView1:
                 <h1>Visitor Counter Data</h1>
                 <form action='/laser-visitor-counter-IoT-NodeMCU-RFID/MVC/controller/Controller.py' method='post'>
                     <label for='visitor_id'>Search by Visitor Number: </label>
-                    <input type='text' id='visitor_id' name='visitor_id'>
-                    <label for='date'>Search by Date: </label>
-                    <input type='date' id='date' name='date'>             
+                    <input type='text' id='visitor_id' name='visitor_id'>            
                     <input type='submit' class='search' name='search' value='SEARCH'/>
                     <input type='submit' class='clear' name='clear_search' value='CLEAR'/>
                     <input type='submit' class='reset' name='clear' value='DELETE' onclick='return confirmReset()'/>
@@ -229,9 +227,7 @@ class MyView2:
                 <h1>Visitor Counter Data</h1>
                 <form action='/laser-visitor-counter-IoT-NodeMCU-RFID/MVC/controller/Controller.py' method='post'>
                     <label for='visitor_id'>Search by Visitor Number: </label>
-                    <input type='text' id='visitor_id' name='visitor_id'>
-                    <label for='date'>Search by Date: </label>
-                    <input type='date' id='date' name='date'>              
+                    <input type='text' id='visitor_id' name='visitor_id'>            
                     <input type='submit' class='search' name='search' value='SEARCH'/>
                     <input type='submit' class='clear' name='clear_search' value='CLEAR'/>
                     <input type='submit' class='reset' name='clear' value='DELETE' onclick='return confirmReset()'/>
