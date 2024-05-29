@@ -12,7 +12,7 @@ int visitorDetected;
 // Bianca WiFi
 const char* ssid = "IoT";
 const char* password = "AccessPoint.2024";
-const char* host = "http://192.168.119.196";
+const char* host = "http://192.168.68.100";
 
 // const char* ssid = "ACM2";
 // const char* password = "0495452821@2024";
